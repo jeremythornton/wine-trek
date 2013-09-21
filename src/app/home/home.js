@@ -24,13 +24,23 @@ angular.module( 'ngBoilerplate.home', [
  * this way makes each module more "self-contained".
  */
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'home', {
-    url: '/home',
-    views: {
-      "main": {
-        controller: 'HomeCtrl',
-        templateUrl: 'home/home.tpl.html'
+  $stateProvider
+    .state( 'home', {
+      url: '/home',
+      views: {
+        "main": {
+          controller: 'HomeCtrl',
+          templateUrl: 'home/home.tpl.html'
+        }
       }
+    })
+    .state( 'addReview', {
+      url: '/addReview',
+      views: {
+        "main": {
+          controller: 'AddReviewCtrl',
+          templateUrl: 'home/addReview.tpl.html'
+        }
     }
   });
 })
@@ -40,6 +50,23 @@ angular.module( 'ngBoilerplate.home', [
  */
 .controller( 'HomeCtrl', function HomeController( $scope, titleService ) {
   titleService.setTitle( 'Home' );
+})
+
+.controller( 'AddReviewCtrl', function AddReviewController( $scope, $http, titleService ) {
+  $scope.master = {name:"initial"};
+  titleService.setTitle( 'Add Review' );
+
+  $scope.postReview =  function(review){
+    $http.post('/submitReview', review).
+      success(function(data){
+        $scope.master = "Review submitted! " + review;
+        $scope.reset();
+      });
+  };
+  
+  $scope.reset = function(){
+    $scope.review = {};
+  };
 })
 
 ;

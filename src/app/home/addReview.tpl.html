@@ -1,0 +1,20 @@
+<form ng-controller="AddReviewCtrl" class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label">name</label>
+    <div class="controls">
+      <input type="text" ng-model="review.name" placeholder="name">
+    </div>
+  </div>  
+  <div class="control-group">
+    <label class="control-label">vintage</label>
+    <div class="controls">
+      <input type="number" ng-model="review.vintage" placeholder="vintage">
+    </div>
+  </div>  
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn" ng-click="postReview(review)">submit review</button>
+    </div>
+  </div>  
+  <pre>master = {{master | json}}</pre>
+</form>
